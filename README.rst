@@ -1,12 +1,12 @@
 A client to access to Digitick online shop API
-==============================================
+**********************************************
 
 This project provides a swagger-generated API access for the digitick online shops.
 
 This project **IS NOT** a digitick official product.
 
 Installation
-------------
+============
 
 The project can be installed with pip::
 
@@ -14,7 +14,10 @@ The project can be installed with pip::
 
 
 API access
-----------
+==========
+
+Authorization
+-------------
 
 You have to get a token to access to the API functions::
 
@@ -31,5 +34,8 @@ You have to get a token to access to the API functions::
         api_response = api_instance.authorize(auth_key)
     except ApiException as e:
         print ('Unable to authenticate user with login %s on api' % login)
+        raise  # Re raise the exception
+    else:
+        api_token = api_response.get('accessToken')
 
 
