@@ -17,12 +17,13 @@ setup(
     author_email='fguerin@ville-tourcoing.fr',
     url='https://github.com/frague59/digitick_client',
     license='MIT',
-    keywords=['digitick', 'swagger',],
-    classifiers=['Development Status :: 4 - Beta',
-                 'Framework :: Django',
+    keywords='digitick swagger REST API',
+    classifiers=['Development Status :: 3 - Alpha',
                  'Intended Audience :: Developers',
                  'License :: OSI Approved :: MIT License',
-                 ],
+                 'Operating System :: POSIX :: Linux',
+                 'Topic :: Software Development :: Libraries',
+                 'Topic :: Utilities', ],
     install_requires=['certifi', 'urllib3', 'six'],
 
     # Source files
