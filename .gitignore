@@ -43,6 +43,7 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -55,7 +56,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
-/build/
+build/
 develop-eggs/
 dist/
 downloads/
@@ -134,14 +135,10 @@ ENV/
 # Rope project settings
 .ropeproject
 
-.idea/
-
 /var/*
 /.sonar/
 /media/
-/fontawesome/docs/
 /tmp/
-!/src/search/locale/fr/LC_MESSAGES/django.mo
 
 # Django secret
 secret.txt
