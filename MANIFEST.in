@@ -1,0 +1,5 @@
+# Includes LICENCE
+include LICENCE
+include README.rst
+# Files
+recursive-include docs *

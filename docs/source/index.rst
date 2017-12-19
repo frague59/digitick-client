@@ -10,6 +10,7 @@ Welcome to digitick-client's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   digitick_client
 
 
 Indices and tables
