@@ -10,12 +10,12 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
 from digitick_client import __version__ as version
 
 setup(
-    name='django-buttons',
+    name='digitick-client',
     version=version,
-    description='An application providing a API access to digitick shopping websites',
+    description='An swagger-generated application providing an API access to digitick shopping websites',
     author='François GUÉRIN',
     author_email='fguerin@ville-tourcoing.fr',
-    url='https://github.com/frague59/digitick_client',
+    url='https://github.com/frague59/digitick-client',
     license='MIT',
     keywords='digitick swagger REST API',
     classifiers=['Development Status :: 3 - Alpha',
