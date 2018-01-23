@@ -100,10 +100,9 @@ class CatalogApi(object):
 
         collection_formats = {}
 
-        resource_path = '/catalog/categories'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -122,7 +121,7 @@ class CatalogApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/catalog/categories', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -203,12 +202,11 @@ class CatalogApi(object):
 
         collection_formats = {}
 
-        resource_path = '/catalog/categories/{categoryId}/subCategories'.replace('{format}', 'json')
         path_params = {}
         if 'category_id' in params:
             path_params['categoryId'] = params['category_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -227,7 +225,7 @@ class CatalogApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/catalog/categories/{categoryId}/sub_categories', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -242,53 +240,75 @@ class CatalogApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def event_find_event_by_id(self, event_id, **kwargs):
+    def event_find_all(self, **kwargs):
         """
-        Get event details
+        Get events allocated in current saleschannel - i.e. events that are available for sale on this saleschannel
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.event_find_event_by_id(event_id, callback=callback_function)
+        >>> thread = api.event_find_all(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int event_id: Event identifier (required)
-        :param str lang: Language code identifier
-        :return: SalesChannelEvent
+        :param int limit: Maximum number of returned events (page size)
+        :param int offset: First offset to return (page position)
+        :param list[int] filters_event_id: Filter by event ids
+        :param list[int] filters_country_id: Filter by country ids
+        :param list[str] filters_date_end: Filter according to a show's ending date and time
+        :param list[str] filters_date_start: Filter according to a show's starting date and time
+        :param list[str] filters_department: Filter by department numbers - departments are one level of France's administrative divisions
+        :param list[str] filters_event_name: Filter by event names
+        :param list[int] filters_producer_id: Filter by producer ids
+        :param list[int] filters_sub_category_id: Filter by event sub-category ids
+        :param list[int] filters_ticket_distributor_id: Filter by ticket distributor ids - Distributors display URL for webpages of events sold through Digitick's ticketing system.
+        :param list[str] filters_venue_name: Filter by venue names
+        :param list[int] filters_zip_code: Filter by zipcodes (postcodes)
+        :return: EventsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.event_find_event_by_id_with_http_info(event_id, **kwargs)
+            return self.event_find_all_with_http_info(**kwargs)
         else:
-            (data) = self.event_find_event_by_id_with_http_info(event_id, **kwargs)
+            (data) = self.event_find_all_with_http_info(**kwargs)
             return data
 
-    def event_find_event_by_id_with_http_info(self, event_id, **kwargs):
+    def event_find_all_with_http_info(self, **kwargs):
         """
-        Get event details
+        Get events allocated in current saleschannel - i.e. events that are available for sale on this saleschannel
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.event_find_event_by_id_with_http_info(event_id, callback=callback_function)
+        >>> thread = api.event_find_all_with_http_info(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int event_id: Event identifier (required)
-        :param str lang: Language code identifier
-        :return: SalesChannelEvent
+        :param int limit: Maximum number of returned events (page size)
+        :param int offset: First offset to return (page position)
+        :param list[int] filters_event_id: Filter by event ids
+        :param list[int] filters_country_id: Filter by country ids
+        :param list[str] filters_date_end: Filter according to a show's ending date and time
+        :param list[str] filters_date_start: Filter according to a show's starting date and time
+        :param list[str] filters_department: Filter by department numbers - departments are one level of France's administrative divisions
+        :param list[str] filters_event_name: Filter by event names
+        :param list[int] filters_producer_id: Filter by producer ids
+        :param list[int] filters_sub_category_id: Filter by event sub-category ids
+        :param list[int] filters_ticket_distributor_id: Filter by ticket distributor ids - Distributors display URL for webpages of events sold through Digitick's ticketing system.
+        :param list[str] filters_venue_name: Filter by venue names
+        :param list[int] filters_zip_code: Filter by zipcodes (postcodes)
+        :return: EventsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['event_id', 'lang']
+        all_params = ['limit', 'offset', 'filters_event_id', 'filters_country_id', 'filters_date_end', 'filters_date_start', 'filters_department', 'filters_event_name', 'filters_producer_id', 'filters_sub_category_id', 'filters_ticket_distributor_id', 'filters_venue_name', 'filters_zip_code']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -299,25 +319,158 @@ class CatalogApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method event_find_event_by_id" % key
+                    " to method event_find_all" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+        if 'limit' in params:
+            query_params.append(('limit', params['limit']))
+        if 'offset' in params:
+            query_params.append(('offset', params['offset']))
+        if 'filters_event_id' in params:
+            query_params.append(('filters[eventId][]', params['filters_event_id']))
+            collection_formats['filters[eventId][]'] = 'multi'
+        if 'filters_country_id' in params:
+            query_params.append(('filters[countryId][]', params['filters_country_id']))
+            collection_formats['filters[countryId][]'] = 'multi'
+        if 'filters_date_end' in params:
+            query_params.append(('filters[dateEnd][]', params['filters_date_end']))
+            collection_formats['filters[dateEnd][]'] = 'multi'
+        if 'filters_date_start' in params:
+            query_params.append(('filters[dateStart][]', params['filters_date_start']))
+            collection_formats['filters[dateStart][]'] = 'multi'
+        if 'filters_department' in params:
+            query_params.append(('filters[department][]', params['filters_department']))
+            collection_formats['filters[department][]'] = 'multi'
+        if 'filters_event_name' in params:
+            query_params.append(('filters[eventName][]', params['filters_event_name']))
+            collection_formats['filters[eventName][]'] = 'multi'
+        if 'filters_producer_id' in params:
+            query_params.append(('filters[producerId][]', params['filters_producer_id']))
+            collection_formats['filters[producerId][]'] = 'multi'
+        if 'filters_sub_category_id' in params:
+            query_params.append(('filters[subCategoryId][]', params['filters_sub_category_id']))
+            collection_formats['filters[subCategoryId][]'] = 'multi'
+        if 'filters_ticket_distributor_id' in params:
+            query_params.append(('filters[ticketDistributorId][]', params['filters_ticket_distributor_id']))
+            collection_formats['filters[ticketDistributorId][]'] = 'multi'
+        if 'filters_venue_name' in params:
+            query_params.append(('filters[venueName][]', params['filters_venue_name']))
+            collection_formats['filters[venueName][]'] = 'multi'
+        if 'filters_zip_code' in params:
+            query_params.append(('filters[zipCode][]', params['filters_zip_code']))
+            collection_formats['filters[zipCode][]'] = 'multi'
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/catalog/events', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='EventsResponse',
+                                        auth_settings=auth_settings,
+                                        callback=params.get('callback'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def event_find_shows_availability(self, event_id, **kwargs):
+        """
+        Get configured shows with price availability for the given event id - i.e. Shows that can be bought on this saleschannel. - A price defines the basic amount a ticket costs. A list of prices is set for each show. A price can be set on one or several shows from one or several events. Price availability is defined by the fact that a price active on the current saleschannel can be bought - i.e. not all seats to which this price has been added have been sold.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.event_find_shows_availability(event_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param int event_id: An event id must be provided (required)
+        :return: ShowsAvailabilityResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.event_find_shows_availability_with_http_info(event_id, **kwargs)
+        else:
+            (data) = self.event_find_shows_availability_with_http_info(event_id, **kwargs)
+            return data
+
+    def event_find_shows_availability_with_http_info(self, event_id, **kwargs):
+        """
+        Get configured shows with price availability for the given event id - i.e. Shows that can be bought on this saleschannel. - A price defines the basic amount a ticket costs. A list of prices is set for each show. A price can be set on one or several shows from one or several events. Price availability is defined by the fact that a price active on the current saleschannel can be bought - i.e. not all seats to which this price has been added have been sold.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.event_find_shows_availability_with_http_info(event_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param int event_id: An event id must be provided (required)
+        :return: ShowsAvailabilityResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['event_id']
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method event_find_shows_availability" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'event_id' is set
         if ('event_id' not in params) or (params['event_id'] is None):
-            raise ValueError("Missing the required parameter `event_id` when calling `event_find_event_by_id`")
+            raise ValueError("Missing the required parameter `event_id` when calling `event_find_shows_availability`")
 
 
         collection_formats = {}
 
-        resource_path = '/catalog/events/{eventId}'.replace('{format}', 'json')
         path_params = {}
         if 'event_id' in params:
             path_params['eventId'] = params['event_id']
 
-        query_params = {}
-        if 'lang' in params:
-            query_params['lang'] = params['lang']
+        query_params = []
 
         header_params = {}
 
@@ -336,14 +489,14 @@ class CatalogApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/catalog/events/{eventId}/shows/availability', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='SalesChannelEvent',
+                                        response_type='ShowsAvailabilityResponse',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -351,53 +504,61 @@ class CatalogApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def grouping_find(self, grouping_id, **kwargs):
+    def event_find_shows_by_event_id(self, event_id, **kwargs):
         """
-        Get grouping detail
+        Get configured shows for the given event id - An event can consist of one or several shows. Each show has its own set-up and belongs to a single event.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.grouping_find(grouping_id, callback=callback_function)
+        >>> thread = api.event_find_shows_by_event_id(event_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int grouping_id: Grouping identifier (required)
-        :param str lang: Language code identifier
-        :return: Grouping
+        :param int event_id: An event id must be provided (required)
+        :param int limit: Maximum number of returned shows (page size)
+        :param int offset: First offset to return (page position)
+        :param list[int] filters_show_id: Filter by show ids
+        :param list[str] filters_venue_name: Filter by venue names
+        :param list[int] filters_zip_code: Filter by zipcodes (postcodes)
+        :return: ShowsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.grouping_find_with_http_info(grouping_id, **kwargs)
+            return self.event_find_shows_by_event_id_with_http_info(event_id, **kwargs)
         else:
-            (data) = self.grouping_find_with_http_info(grouping_id, **kwargs)
+            (data) = self.event_find_shows_by_event_id_with_http_info(event_id, **kwargs)
             return data
 
-    def grouping_find_with_http_info(self, grouping_id, **kwargs):
+    def event_find_shows_by_event_id_with_http_info(self, event_id, **kwargs):
         """
-        Get grouping detail
+        Get configured shows for the given event id - An event can consist of one or several shows. Each show has its own set-up and belongs to a single event.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.grouping_find_with_http_info(grouping_id, callback=callback_function)
+        >>> thread = api.event_find_shows_by_event_id_with_http_info(event_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int grouping_id: Grouping identifier (required)
-        :param str lang: Language code identifier
-        :return: Grouping
+        :param int event_id: An event id must be provided (required)
+        :param int limit: Maximum number of returned shows (page size)
+        :param int offset: First offset to return (page position)
+        :param list[int] filters_show_id: Filter by show ids
+        :param list[str] filters_venue_name: Filter by venue names
+        :param list[int] filters_zip_code: Filter by zipcodes (postcodes)
+        :return: ShowsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['grouping_id', 'lang']
+        all_params = ['event_id', 'limit', 'offset', 'filters_show_id', 'filters_venue_name', 'filters_zip_code']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -408,25 +569,35 @@ class CatalogApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method grouping_find" % key
+                    " to method event_find_shows_by_event_id" % key
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'grouping_id' is set
-        if ('grouping_id' not in params) or (params['grouping_id'] is None):
-            raise ValueError("Missing the required parameter `grouping_id` when calling `grouping_find`")
+        # verify the required parameter 'event_id' is set
+        if ('event_id' not in params) or (params['event_id'] is None):
+            raise ValueError("Missing the required parameter `event_id` when calling `event_find_shows_by_event_id`")
 
 
         collection_formats = {}
 
-        resource_path = '/catalog/groupings/{groupingId}'.replace('{format}', 'json')
         path_params = {}
-        if 'grouping_id' in params:
-            path_params['groupingId'] = params['grouping_id']
+        if 'event_id' in params:
+            path_params['eventId'] = params['event_id']
 
-        query_params = {}
-        if 'lang' in params:
-            query_params['lang'] = params['lang']
+        query_params = []
+        if 'limit' in params:
+            query_params.append(('limit', params['limit']))
+        if 'offset' in params:
+            query_params.append(('offset', params['offset']))
+        if 'filters_show_id' in params:
+            query_params.append(('filters[showId][]', params['filters_show_id']))
+            collection_formats['filters[showId][]'] = 'multi'
+        if 'filters_venue_name' in params:
+            query_params.append(('filters[venueName][]', params['filters_venue_name']))
+            collection_formats['filters[venueName][]'] = 'multi'
+        if 'filters_zip_code' in params:
+            query_params.append(('filters[zipCode][]', params['filters_zip_code']))
+            collection_formats['filters[zipCode][]'] = 'multi'
 
         header_params = {}
 
@@ -445,14 +616,14 @@ class CatalogApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/catalog/events/{eventId}/shows', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='Grouping',
+                                        response_type='ShowsResponse',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -460,53 +631,57 @@ class CatalogApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def show_find_one_by_event_and_sales_channel_id(self, show_id, **kwargs):
+    def grouping_find_all(self, **kwargs):
         """
-        Get configured show for the given event id - An event can consist of one or several shows. Each show has its own set-up and belongs to a single event.
+        Get groupings - A grouping is an entity which contains events and can also contains other groupings.  'Groupings' can be used to classify events and act as virtual folders. An event can belong to one or several groupings. They make it easier looking for events : a. in the back-office if you are the promoter / b. online if you are looking to buy tickets. Groupings also allow the promoter to extract more targeted sales figures with grouping oriented sales reports. Example : In the case of a venue which hosts all sorts of musical events, the promoter might decide to use 'groupings' : a. to group events by their musical genres >> all classical music events would be added to a grouping named 'CLASSICAL', same for pop rock events etc / b. to group events for which special offers are proposed.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.show_find_one_by_event_and_sales_channel_id(show_id, callback=callback_function)
+        >>> thread = api.grouping_find_all(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int show_id: An show id must be provided (required)
-        :param str lang: Language code identifier
-        :return: ShowDetail
+        :param int grouping_parent_id: Grouping parent id. Set 0 for root.
+        :param int limit: Maximum number of returned groupings (page size)
+        :param int offset: First offset to return (page position)
+        :param list[int] filters_regroupement_id: Filter by grouping ids
+        :return: GroupingsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.show_find_one_by_event_and_sales_channel_id_with_http_info(show_id, **kwargs)
+            return self.grouping_find_all_with_http_info(**kwargs)
         else:
-            (data) = self.show_find_one_by_event_and_sales_channel_id_with_http_info(show_id, **kwargs)
+            (data) = self.grouping_find_all_with_http_info(**kwargs)
             return data
 
-    def show_find_one_by_event_and_sales_channel_id_with_http_info(self, show_id, **kwargs):
+    def grouping_find_all_with_http_info(self, **kwargs):
         """
-        Get configured show for the given event id - An event can consist of one or several shows. Each show has its own set-up and belongs to a single event.
+        Get groupings - A grouping is an entity which contains events and can also contains other groupings.  'Groupings' can be used to classify events and act as virtual folders. An event can belong to one or several groupings. They make it easier looking for events : a. in the back-office if you are the promoter / b. online if you are looking to buy tickets. Groupings also allow the promoter to extract more targeted sales figures with grouping oriented sales reports. Example : In the case of a venue which hosts all sorts of musical events, the promoter might decide to use 'groupings' : a. to group events by their musical genres >> all classical music events would be added to a grouping named 'CLASSICAL', same for pop rock events etc / b. to group events for which special offers are proposed.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.show_find_one_by_event_and_sales_channel_id_with_http_info(show_id, callback=callback_function)
+        >>> thread = api.grouping_find_all_with_http_info(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int show_id: An show id must be provided (required)
-        :param str lang: Language code identifier
-        :return: ShowDetail
+        :param int grouping_parent_id: Grouping parent id. Set 0 for root.
+        :param int limit: Maximum number of returned groupings (page size)
+        :param int offset: First offset to return (page position)
+        :param list[int] filters_regroupement_id: Filter by grouping ids
+        :return: GroupingsResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['show_id', 'lang']
+        all_params = ['grouping_parent_id', 'limit', 'offset', 'filters_regroupement_id']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -517,25 +692,143 @@ class CatalogApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method show_find_one_by_event_and_sales_channel_id" % key
+                    " to method grouping_find_all" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+        if 'grouping_parent_id' in params:
+            query_params.append(('groupingParentId', params['grouping_parent_id']))
+        if 'limit' in params:
+            query_params.append(('limit', params['limit']))
+        if 'offset' in params:
+            query_params.append(('offset', params['offset']))
+        if 'filters_regroupement_id' in params:
+            query_params.append(('filters[regroupementId][]', params['filters_regroupement_id']))
+            collection_formats['filters[regroupementId][]'] = 'multi'
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/catalog/groupings', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type='GroupingsResponse',
+                                        auth_settings=auth_settings,
+                                        callback=params.get('callback'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def show_find_prices_by_show_id(self, show_id, **kwargs):
+        """
+        Get all prices from a specific show - i.e. For a given show, prices active on the current saleschannel that can be bought - for which there is availability.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.show_find_prices_by_show_id(show_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param int show_id: A show id must be provided (required)
+        :param int limit: Maximum number of returned prices (page size)
+        :param int offset: First offset to return (page position)
+        :param list[str] filters_venue_city_name: Define venue city name filters
+        :return: PricesResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.show_find_prices_by_show_id_with_http_info(show_id, **kwargs)
+        else:
+            (data) = self.show_find_prices_by_show_id_with_http_info(show_id, **kwargs)
+            return data
+
+    def show_find_prices_by_show_id_with_http_info(self, show_id, **kwargs):
+        """
+        Get all prices from a specific show - i.e. For a given show, prices active on the current saleschannel that can be bought - for which there is availability.
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.show_find_prices_by_show_id_with_http_info(show_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param int show_id: A show id must be provided (required)
+        :param int limit: Maximum number of returned prices (page size)
+        :param int offset: First offset to return (page position)
+        :param list[str] filters_venue_city_name: Define venue city name filters
+        :return: PricesResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['show_id', 'limit', 'offset', 'filters_venue_city_name']
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method show_find_prices_by_show_id" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'show_id' is set
         if ('show_id' not in params) or (params['show_id'] is None):
-            raise ValueError("Missing the required parameter `show_id` when calling `show_find_one_by_event_and_sales_channel_id`")
+            raise ValueError("Missing the required parameter `show_id` when calling `show_find_prices_by_show_id`")
 
 
         collection_formats = {}
 
-        resource_path = '/catalog/shows/{showId}'.replace('{format}', 'json')
         path_params = {}
         if 'show_id' in params:
             path_params['showId'] = params['show_id']
 
-        query_params = {}
-        if 'lang' in params:
-            query_params['lang'] = params['lang']
+        query_params = []
+        if 'limit' in params:
+            query_params.append(('limit', params['limit']))
+        if 'offset' in params:
+            query_params.append(('offset', params['offset']))
+        if 'filters_venue_city_name' in params:
+            query_params.append(('filters[venueCityName][]', params['filters_venue_city_name']))
+            collection_formats['filters[venueCityName][]'] = 'multi'
 
         header_params = {}
 
@@ -554,14 +847,14 @@ class CatalogApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/catalog/shows/{showId}/prices', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='ShowDetail',
+                                        response_type='PricesResponse',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -569,51 +862,53 @@ class CatalogApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def show_find_one_price_by_show_id(self, price_id, **kwargs):
+    def show_find_venues_blocks_availability_by_blocks_and_show_id(self, show_id, block_ids, **kwargs):
         """
-        Get all the details of the price for a specific show
+        Get availability for the given block id(s) and show id - A venue is the place where the show takes place >> a venue has to be set for each show. A venue can have different set-ups.  A particular set-up can consist of one or several blocks of seats. If the venue's set-up selected for a show is made of blocks of seats, the user will decide which seats will carry a certain list of prices. A seat is considered available if at least one price listed for this seat is active on the current saleschannel.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.show_find_one_price_by_show_id(price_id, callback=callback_function)
+        >>> thread = api.show_find_venues_blocks_availability_by_blocks_and_show_id(show_id, block_ids, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int price_id: Id of the price (required)
-        :return: PriceDetailResponse
+        :param int show_id: A show id must be provided (required)
+        :param str block_ids: One or more block ids separated by comma (required)
+        :return: ShowsBlocksAvailabilityResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.show_find_one_price_by_show_id_with_http_info(price_id, **kwargs)
+            return self.show_find_venues_blocks_availability_by_blocks_and_show_id_with_http_info(show_id, block_ids, **kwargs)
         else:
-            (data) = self.show_find_one_price_by_show_id_with_http_info(price_id, **kwargs)
+            (data) = self.show_find_venues_blocks_availability_by_blocks_and_show_id_with_http_info(show_id, block_ids, **kwargs)
             return data
 
-    def show_find_one_price_by_show_id_with_http_info(self, price_id, **kwargs):
+    def show_find_venues_blocks_availability_by_blocks_and_show_id_with_http_info(self, show_id, block_ids, **kwargs):
         """
-        Get all the details of the price for a specific show
+        Get availability for the given block id(s) and show id - A venue is the place where the show takes place >> a venue has to be set for each show. A venue can have different set-ups.  A particular set-up can consist of one or several blocks of seats. If the venue's set-up selected for a show is made of blocks of seats, the user will decide which seats will carry a certain list of prices. A seat is considered available if at least one price listed for this seat is active on the current saleschannel.
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.show_find_one_price_by_show_id_with_http_info(price_id, callback=callback_function)
+        >>> thread = api.show_find_venues_blocks_availability_by_blocks_and_show_id_with_http_info(show_id, block_ids, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param int price_id: Id of the price (required)
-        :return: PriceDetailResponse
+        :param int show_id: A show id must be provided (required)
+        :param str block_ids: One or more block ids separated by comma (required)
+        :return: ShowsBlocksAvailabilityResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['price_id']
+        all_params = ['show_id', 'block_ids']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -624,23 +919,29 @@ class CatalogApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method show_find_one_price_by_show_id" % key
+                    " to method show_find_venues_blocks_availability_by_blocks_and_show_id" % key
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'price_id' is set
-        if ('price_id' not in params) or (params['price_id'] is None):
-            raise ValueError("Missing the required parameter `price_id` when calling `show_find_one_price_by_show_id`")
+        # verify the required parameter 'show_id' is set
+        if ('show_id' not in params) or (params['show_id'] is None):
+            raise ValueError("Missing the required parameter `show_id` when calling `show_find_venues_blocks_availability_by_blocks_and_show_id`")
+        # verify the required parameter 'block_ids' is set
+        if ('block_ids' not in params) or (params['block_ids'] is None):
+            raise ValueError("Missing the required parameter `block_ids` when calling `show_find_venues_blocks_availability_by_blocks_and_show_id`")
 
+        if 'block_ids' in params and not re.search('<id_1>,<id_2>...<id_n>', params['block_ids']):
+            raise ValueError("Invalid value for parameter `block_ids` when calling `show_find_venues_blocks_availability_by_blocks_and_show_id`, must conform to the pattern `/<id_1>,<id_2>...<id_n>/`")
 
         collection_formats = {}
 
-        resource_path = '/catalog/prices/{priceId}'.replace('{format}', 'json')
         path_params = {}
-        if 'price_id' in params:
-            path_params['priceId'] = params['price_id']
+        if 'show_id' in params:
+            path_params['showId'] = params['show_id']
+        if 'block_ids' in params:
+            path_params['blockIds'] = params['block_ids']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -659,14 +960,14 @@ class CatalogApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/catalog/shows/{showId}/blocks/{blockIds}/availability', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='PriceDetailResponse',
+                                        response_type='ShowsBlocksAvailabilityResponse',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -751,30 +1052,29 @@ class CatalogApi(object):
 
         collection_formats = {}
 
-        resource_path = '/catalog/venues'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
         if 'limit' in params:
-            query_params['limit'] = params['limit']
+            query_params.append(('limit', params['limit']))
         if 'offset' in params:
-            query_params['offset'] = params['offset']
+            query_params.append(('offset', params['offset']))
         if 'filters_venue_city_name' in params:
-            query_params['filters[venueCityName][]'] = params['filters_venue_city_name']
+            query_params.append(('filters[venueCityName][]', params['filters_venue_city_name']))
             collection_formats['filters[venueCityName][]'] = 'multi'
         if 'filters_venue_capacity' in params:
-            query_params['filters[venueCapacity][]'] = params['filters_venue_capacity']
+            query_params.append(('filters[venueCapacity][]', params['filters_venue_capacity']))
             collection_formats['filters[venueCapacity][]'] = 'multi'
         if 'filters_venue_id' in params:
-            query_params['filters[venueId][]'] = params['filters_venue_id']
+            query_params.append(('filters[venueId][]', params['filters_venue_id']))
             collection_formats['filters[venueId][]'] = 'multi'
         if 'filters_venue_name' in params:
-            query_params['filters[venueName][]'] = params['filters_venue_name']
+            query_params.append(('filters[venueName][]', params['filters_venue_name']))
             collection_formats['filters[venueName][]'] = 'multi'
         if 'sort_venue_name_value' in params:
-            query_params['sort[venueName][value]'] = params['sort_venue_name_value']
+            query_params.append(('sort[venueName][value]', params['sort_venue_name_value']))
         if 'sort_venue_name_priority' in params:
-            query_params['sort[venueName][priority]'] = params['sort_venue_name_priority']
+            query_params.append(('sort[venueName][priority]', params['sort_venue_name_priority']))
 
         header_params = {}
 
@@ -793,7 +1093,7 @@ class CatalogApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/catalog/venues', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,

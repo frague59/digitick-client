@@ -40,48 +40,48 @@ class OrderApi(object):
                 config.api_client = ApiClient()
             self.api_client = config.api_client
 
-    def cart_add_entry(self, cart_id, body, **kwargs):
+    def cart_add_place(self, cart_id, body, **kwargs):
         """
-        Add seat(s)/entry(ies) in cart by price(s)
+        Add place(s) in cart
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.cart_add_entry(cart_id, body, callback=callback_function)
+        >>> thread = api.cart_add_place(cart_id, body, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str cart_id: Define a cart id after its creation (required)
-        :param CartEntriesByPrices body: The 'Entry' object that needs to be added to the cart (which will hence update the cart). Take a look at models to know exactly what to send. (required)
-        :return: CartAddResponse
+        :param Places body: The 'Place' object that needs to be added to the cart (which will hence update the cart). Take a look at models to know exactly what to send. (required)
+        :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.cart_add_entry_with_http_info(cart_id, body, **kwargs)
+            return self.cart_add_place_with_http_info(cart_id, body, **kwargs)
         else:
-            (data) = self.cart_add_entry_with_http_info(cart_id, body, **kwargs)
+            (data) = self.cart_add_place_with_http_info(cart_id, body, **kwargs)
             return data
 
-    def cart_add_entry_with_http_info(self, cart_id, body, **kwargs):
+    def cart_add_place_with_http_info(self, cart_id, body, **kwargs):
         """
-        Add seat(s)/entry(ies) in cart by price(s)
+        Add place(s) in cart
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.cart_add_entry_with_http_info(cart_id, body, callback=callback_function)
+        >>> thread = api.cart_add_place_with_http_info(cart_id, body, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str cart_id: Define a cart id after its creation (required)
-        :param CartEntriesByPrices body: The 'Entry' object that needs to be added to the cart (which will hence update the cart). Take a look at models to know exactly what to send. (required)
-        :return: CartAddResponse
+        :param Places body: The 'Place' object that needs to be added to the cart (which will hence update the cart). Take a look at models to know exactly what to send. (required)
+        :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
@@ -97,26 +97,25 @@ class OrderApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method cart_add_entry" % key
+                    " to method cart_add_place" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'cart_id' is set
         if ('cart_id' not in params) or (params['cart_id'] is None):
-            raise ValueError("Missing the required parameter `cart_id` when calling `cart_add_entry`")
+            raise ValueError("Missing the required parameter `cart_id` when calling `cart_add_place`")
         # verify the required parameter 'body' is set
         if ('body' not in params) or (params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `cart_add_entry`")
+            raise ValueError("Missing the required parameter `body` when calling `cart_add_place`")
 
 
         collection_formats = {}
 
-        resource_path = '/order/carts/{cartId}/entries/createByPrices'.replace('{format}', 'json')
         path_params = {}
         if 'cart_id' in params:
             path_params['cartId'] = params['cart_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -137,14 +136,14 @@ class OrderApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/order/carts/{cartId}/places', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
                                         body=body_params,
                                         post_params=form_params,
                                         files=local_var_files,
-                                        response_type='CartAddResponse',
+                                        response_type=None,
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -152,231 +151,7 @@ class OrderApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def cart_add_entry_0(self, cart_id, body, **kwargs):
-        """
-        Add seat(s)/entry(ies) in cart by section and price(s)
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.cart_add_entry_0(cart_id, body, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str cart_id: Define a cart id after its creation (required)
-        :param CartEntriesBySection body: The 'Entry' object that needs to be added to the cart (which will hence update the cart). Take a look at models to know exactly what to send. (required)
-        :return: CartAddResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.cart_add_entry_0_with_http_info(cart_id, body, **kwargs)
-        else:
-            (data) = self.cart_add_entry_0_with_http_info(cart_id, body, **kwargs)
-            return data
-
-    def cart_add_entry_0_with_http_info(self, cart_id, body, **kwargs):
-        """
-        Add seat(s)/entry(ies) in cart by section and price(s)
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.cart_add_entry_0_with_http_info(cart_id, body, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str cart_id: Define a cart id after its creation (required)
-        :param CartEntriesBySection body: The 'Entry' object that needs to be added to the cart (which will hence update the cart). Take a look at models to know exactly what to send. (required)
-        :return: CartAddResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['cart_id', 'body']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method cart_add_entry_0" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'cart_id' is set
-        if ('cart_id' not in params) or (params['cart_id'] is None):
-            raise ValueError("Missing the required parameter `cart_id` when calling `cart_add_entry_0`")
-        # verify the required parameter 'body' is set
-        if ('body' not in params) or (params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `cart_add_entry_0`")
-
-
-        collection_formats = {}
-
-        resource_path = '/order/carts/{cartId}/entries/createBySection'.replace('{format}', 'json')
-        path_params = {}
-        if 'cart_id' in params:
-            path_params['cartId'] = params['cart_id']
-
-        query_params = {}
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'body' in params:
-            body_params = params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['json'])
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'POST',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='CartAddResponse',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def cart_add_entry_1(self, cart_id, body, **kwargs):
-        """
-        Add seat(s)/entry(ies) in cart by seats ids and price(s)
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.cart_add_entry_1(cart_id, body, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str cart_id: Define a cart id after its creation (required)
-        :param CartEntriesBySeats body: The 'Entry' object that needs to be added to the cart (which will hence update the cart). Take a look at models to know exactly what to send. (required)
-        :return: CartAddBySeatsResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.cart_add_entry_1_with_http_info(cart_id, body, **kwargs)
-        else:
-            (data) = self.cart_add_entry_1_with_http_info(cart_id, body, **kwargs)
-            return data
-
-    def cart_add_entry_1_with_http_info(self, cart_id, body, **kwargs):
-        """
-        Add seat(s)/entry(ies) in cart by seats ids and price(s)
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.cart_add_entry_1_with_http_info(cart_id, body, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str cart_id: Define a cart id after its creation (required)
-        :param CartEntriesBySeats body: The 'Entry' object that needs to be added to the cart (which will hence update the cart). Take a look at models to know exactly what to send. (required)
-        :return: CartAddBySeatsResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['cart_id', 'body']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method cart_add_entry_1" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'cart_id' is set
-        if ('cart_id' not in params) or (params['cart_id'] is None):
-            raise ValueError("Missing the required parameter `cart_id` when calling `cart_add_entry_1`")
-        # verify the required parameter 'body' is set
-        if ('body' not in params) or (params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `cart_add_entry_1`")
-
-
-        collection_formats = {}
-
-        resource_path = '/order/carts/{cartId}/entries/createBySeats'.replace('{format}', 'json')
-        path_params = {}
-        if 'cart_id' in params:
-            path_params['cartId'] = params['cart_id']
-
-        query_params = {}
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'body' in params:
-            body_params = params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['json'])
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'POST',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='CartAddBySeatsResponse',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def cart_create(self, body, **kwargs):
+    def cart_create(self, **kwargs):
         """
         Create a new cart
         This method makes a synchronous HTTP request by default. To make an
@@ -385,23 +160,23 @@ class OrderApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.cart_create(body, callback=callback_function)
+        >>> thread = api.cart_create(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param CreateCart body: The information to create the cart. (required)
+        :param int cart_timeout: You may define the cart timeout duration
         :return: CartCreateResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.cart_create_with_http_info(body, **kwargs)
+            return self.cart_create_with_http_info(**kwargs)
         else:
-            (data) = self.cart_create_with_http_info(body, **kwargs)
+            (data) = self.cart_create_with_http_info(**kwargs)
             return data
 
-    def cart_create_with_http_info(self, body, **kwargs):
+    def cart_create_with_http_info(self, **kwargs):
         """
         Create a new cart
         This method makes a synchronous HTTP request by default. To make an
@@ -410,17 +185,17 @@ class OrderApi(object):
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.cart_create_with_http_info(body, callback=callback_function)
+        >>> thread = api.cart_create_with_http_info(callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
-        :param CreateCart body: The information to create the cart. (required)
+        :param int cart_timeout: You may define the cart timeout duration
         :return: CartCreateResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['body']
+        all_params = ['cart_timeout']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -435,17 +210,15 @@ class OrderApi(object):
                 )
             params[key] = val
         del params['kwargs']
-        # verify the required parameter 'body' is set
-        if ('body' not in params) or (params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `cart_create`")
 
 
         collection_formats = {}
 
-        resource_path = '/order/carts'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
+        if 'cart_timeout' in params:
+            query_params.append(('cartTimeout', params['cart_timeout']))
 
         header_params = {}
 
@@ -453,8 +226,6 @@ class OrderApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.\
             select_header_accept(['json'])
@@ -466,7 +237,7 @@ class OrderApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/order/carts/create', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -481,53 +252,53 @@ class OrderApi(object):
                                         _request_timeout=params.get('_request_timeout'),
                                         collection_formats=collection_formats)
 
-    def cart_delete_entry(self, cart_id, entry_id, **kwargs):
+    def cart_delete_place(self, cart_id, place_id, **kwargs):
         """
-        Delete entry(s) from cart
+        Delete place(s) from cart
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.cart_delete_entry(cart_id, entry_id, callback=callback_function)
+        >>> thread = api.cart_delete_place(cart_id, place_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str cart_id: Define a cart id after its creation (required)
-        :param str entry_id: Define a entry id or a comma separated list (required)
+        :param str place_id: Define a place id or a comma separated list (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
         kwargs['_return_http_data_only'] = True
         if kwargs.get('callback'):
-            return self.cart_delete_entry_with_http_info(cart_id, entry_id, **kwargs)
+            return self.cart_delete_place_with_http_info(cart_id, place_id, **kwargs)
         else:
-            (data) = self.cart_delete_entry_with_http_info(cart_id, entry_id, **kwargs)
+            (data) = self.cart_delete_place_with_http_info(cart_id, place_id, **kwargs)
             return data
 
-    def cart_delete_entry_with_http_info(self, cart_id, entry_id, **kwargs):
+    def cart_delete_place_with_http_info(self, cart_id, place_id, **kwargs):
         """
-        Delete entry(s) from cart
+        Delete place(s) from cart
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please define a `callback` function
         to be invoked when receiving the response.
         >>> def callback_function(response):
         >>>     pprint(response)
         >>>
-        >>> thread = api.cart_delete_entry_with_http_info(cart_id, entry_id, callback=callback_function)
+        >>> thread = api.cart_delete_place_with_http_info(cart_id, place_id, callback=callback_function)
 
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str cart_id: Define a cart id after its creation (required)
-        :param str entry_id: Define a entry id or a comma separated list (required)
+        :param str place_id: Define a place id or a comma separated list (required)
         :return: None
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['cart_id', 'entry_id']
+        all_params = ['cart_id', 'place_id']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -538,28 +309,27 @@ class OrderApi(object):
             if key not in all_params:
                 raise TypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method cart_delete_entry" % key
+                    " to method cart_delete_place" % key
                 )
             params[key] = val
         del params['kwargs']
         # verify the required parameter 'cart_id' is set
         if ('cart_id' not in params) or (params['cart_id'] is None):
-            raise ValueError("Missing the required parameter `cart_id` when calling `cart_delete_entry`")
-        # verify the required parameter 'entry_id' is set
-        if ('entry_id' not in params) or (params['entry_id'] is None):
-            raise ValueError("Missing the required parameter `entry_id` when calling `cart_delete_entry`")
+            raise ValueError("Missing the required parameter `cart_id` when calling `cart_delete_place`")
+        # verify the required parameter 'place_id' is set
+        if ('place_id' not in params) or (params['place_id'] is None):
+            raise ValueError("Missing the required parameter `place_id` when calling `cart_delete_place`")
 
 
         collection_formats = {}
 
-        resource_path = '/order/carts/{cartId}/entries/{entryId}'.replace('{format}', 'json')
         path_params = {}
         if 'cart_id' in params:
             path_params['cartId'] = params['cart_id']
-        if 'entry_id' in params:
-            path_params['entryId'] = params['entry_id']
+        if 'place_id' in params:
+            path_params['placeId'] = params['place_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -578,7 +348,7 @@ class OrderApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/order/carts/{cartId}/places/{placeId}', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -659,12 +429,11 @@ class OrderApi(object):
 
         collection_formats = {}
 
-        resource_path = '/order/carts/{cartId}'.replace('{format}', 'json')
         path_params = {}
         if 'cart_id' in params:
             path_params['cartId'] = params['cart_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -683,7 +452,7 @@ class OrderApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/order/carts/{cartId}/places', 'DELETE',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -764,12 +533,11 @@ class OrderApi(object):
 
         collection_formats = {}
 
-        resource_path = '/order/carts/{cartId}'.replace('{format}', 'json')
         path_params = {}
         if 'cart_id' in params:
             path_params['cartId'] = params['cart_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -788,7 +556,7 @@ class OrderApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/order/carts/{cartId}', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -817,7 +585,6 @@ class OrderApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str cart_id: Define a cart id after its creation (required)
-        :param UserCart body: a user Id (mandatory)
         :return: SaveCartResponse
                  If the method is called asynchronously,
                  returns the request thread.
@@ -843,13 +610,12 @@ class OrderApi(object):
         :param callback function: The callback function
             for asynchronous request. (optional)
         :param str cart_id: Define a cart id after its creation (required)
-        :param UserCart body: a user Id (mandatory)
         :return: SaveCartResponse
                  If the method is called asynchronously,
                  returns the request thread.
         """
 
-        all_params = ['cart_id', 'body']
+        all_params = ['cart_id']
         all_params.append('callback')
         all_params.append('_return_http_data_only')
         all_params.append('_preload_content')
@@ -871,12 +637,11 @@ class OrderApi(object):
 
         collection_formats = {}
 
-        resource_path = '/order/transactions/carts/{cartId}/createFromCart'.replace('{format}', 'json')
         path_params = {}
         if 'cart_id' in params:
             path_params['cartId'] = params['cart_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -884,8 +649,6 @@ class OrderApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'body' in params:
-            body_params = params['body']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.\
             select_header_accept(['json'])
@@ -897,7 +660,7 @@ class OrderApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/order/carts/{cartId}/save', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -905,1083 +668,6 @@ class OrderApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='SaveCartResponse',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def cart_set_holder(self, cart_id, entry_id, body, **kwargs):
-        """
-        update information of the entry holder (firstName...)
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.cart_set_holder(cart_id, entry_id, body, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str cart_id: Define a cart id (required)
-        :param str entry_id: Define a entry id (required)
-        :param Holder body: Information of the entry holder (required)
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.cart_set_holder_with_http_info(cart_id, entry_id, body, **kwargs)
-        else:
-            (data) = self.cart_set_holder_with_http_info(cart_id, entry_id, body, **kwargs)
-            return data
-
-    def cart_set_holder_with_http_info(self, cart_id, entry_id, body, **kwargs):
-        """
-        update information of the entry holder (firstName...)
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.cart_set_holder_with_http_info(cart_id, entry_id, body, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str cart_id: Define a cart id (required)
-        :param str entry_id: Define a entry id (required)
-        :param Holder body: Information of the entry holder (required)
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['cart_id', 'entry_id', 'body']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method cart_set_holder" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'cart_id' is set
-        if ('cart_id' not in params) or (params['cart_id'] is None):
-            raise ValueError("Missing the required parameter `cart_id` when calling `cart_set_holder`")
-        # verify the required parameter 'entry_id' is set
-        if ('entry_id' not in params) or (params['entry_id'] is None):
-            raise ValueError("Missing the required parameter `entry_id` when calling `cart_set_holder`")
-        # verify the required parameter 'body' is set
-        if ('body' not in params) or (params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `cart_set_holder`")
-
-
-        collection_formats = {}
-
-        resource_path = '/order/carts/{cartId}/entries/{entryId}/holder'.replace('{format}', 'json')
-        path_params = {}
-        if 'cart_id' in params:
-            path_params['cartId'] = params['cart_id']
-        if 'entry_id' in params:
-            path_params['entryId'] = params['entry_id']
-
-        query_params = {}
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'body' in params:
-            body_params = params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['json'])
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'PUT',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type=None,
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def cart_update_holder_entry(self, ticket_id, body, **kwargs):
-        """
-        Update holder of a ticket. For example, rename the holder for a transaction ticket. 
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.cart_update_holder_entry(ticket_id, body, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str ticket_id: An ticket id must be provided (required)
-        :param UpdateHolderEntryInfos body: This model is used to update holder of a ticket (firstName|lastname). The 'op' property only accepts 'add' (add or replace a value property) and 'remove' values. Do not supply value property if the operation is 'remove'. (required)
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.cart_update_holder_entry_with_http_info(ticket_id, body, **kwargs)
-        else:
-            (data) = self.cart_update_holder_entry_with_http_info(ticket_id, body, **kwargs)
-            return data
-
-    def cart_update_holder_entry_with_http_info(self, ticket_id, body, **kwargs):
-        """
-        Update holder of a ticket. For example, rename the holder for a transaction ticket. 
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.cart_update_holder_entry_with_http_info(ticket_id, body, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str ticket_id: An ticket id must be provided (required)
-        :param UpdateHolderEntryInfos body: This model is used to update holder of a ticket (firstName|lastname). The 'op' property only accepts 'add' (add or replace a value property) and 'remove' values. Do not supply value property if the operation is 'remove'. (required)
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['ticket_id', 'body']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method cart_update_holder_entry" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'ticket_id' is set
-        if ('ticket_id' not in params) or (params['ticket_id'] is None):
-            raise ValueError("Missing the required parameter `ticket_id` when calling `cart_update_holder_entry`")
-        # verify the required parameter 'body' is set
-        if ('body' not in params) or (params['body'] is None):
-            raise ValueError("Missing the required parameter `body` when calling `cart_update_holder_entry`")
-
-
-        collection_formats = {}
-
-        resource_path = '/order/transactions/tickets/{ticketId}/holder'.replace('{format}', 'json')
-        path_params = {}
-        if 'ticket_id' in params:
-            path_params['ticketId'] = params['ticket_id']
-
-        query_params = {}
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'body' in params:
-            body_params = params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['json'])
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'PATCH',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type=None,
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def delivery_mode_find_by(self, cart_id, sales_channel_id, **kwargs):
-        """
-        get delivery mode for a cart and saleschannel
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.delivery_mode_find_by(cart_id, sales_channel_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param int cart_id: Define a cart id after its creation (required)
-        :param int sales_channel_id: Define a salesChannel (required)
-        :param int filters_structure_type_id: Define a structure type
-        :return: DeliveryModeList
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.delivery_mode_find_by_with_http_info(cart_id, sales_channel_id, **kwargs)
-        else:
-            (data) = self.delivery_mode_find_by_with_http_info(cart_id, sales_channel_id, **kwargs)
-            return data
-
-    def delivery_mode_find_by_with_http_info(self, cart_id, sales_channel_id, **kwargs):
-        """
-        get delivery mode for a cart and saleschannel
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.delivery_mode_find_by_with_http_info(cart_id, sales_channel_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param int cart_id: Define a cart id after its creation (required)
-        :param int sales_channel_id: Define a salesChannel (required)
-        :param int filters_structure_type_id: Define a structure type
-        :return: DeliveryModeList
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['cart_id', 'sales_channel_id', 'filters_structure_type_id']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method delivery_mode_find_by" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'cart_id' is set
-        if ('cart_id' not in params) or (params['cart_id'] is None):
-            raise ValueError("Missing the required parameter `cart_id` when calling `delivery_mode_find_by`")
-        # verify the required parameter 'sales_channel_id' is set
-        if ('sales_channel_id' not in params) or (params['sales_channel_id'] is None):
-            raise ValueError("Missing the required parameter `sales_channel_id` when calling `delivery_mode_find_by`")
-
-
-        collection_formats = {}
-
-        resource_path = '/order/carts/{cartId}/salesChannels/{salesChannelId}/deliveryMode'.replace('{format}', 'json')
-        path_params = {}
-        if 'cart_id' in params:
-            path_params['cartId'] = params['cart_id']
-        if 'sales_channel_id' in params:
-            path_params['salesChannelId'] = params['sales_channel_id']
-
-        query_params = {}
-        if 'filters_structure_type_id' in params:
-            query_params['filters[structureTypeId]'] = params['filters_structure_type_id']
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['json'])
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='DeliveryModeList',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def holder_fields_find(self, cart_id, **kwargs):
-        """
-        Get Holder fields for a entry
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.holder_fields_find(cart_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param int cart_id: Define a cart id (required)
-        :return: HolderFieldsResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.holder_fields_find_with_http_info(cart_id, **kwargs)
-        else:
-            (data) = self.holder_fields_find_with_http_info(cart_id, **kwargs)
-            return data
-
-    def holder_fields_find_with_http_info(self, cart_id, **kwargs):
-        """
-        Get Holder fields for a entry
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.holder_fields_find_with_http_info(cart_id, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param int cart_id: Define a cart id (required)
-        :return: HolderFieldsResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['cart_id']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method holder_fields_find" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'cart_id' is set
-        if ('cart_id' not in params) or (params['cart_id'] is None):
-            raise ValueError("Missing the required parameter `cart_id` when calling `holder_fields_find`")
-
-
-        collection_formats = {}
-
-        resource_path = '/order/carts/{cartId}/holderFields'.replace('{format}', 'json')
-        path_params = {}
-        if 'cart_id' in params:
-            path_params['cartId'] = params['cart_id']
-
-        query_params = {}
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['json'])
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='HolderFieldsResponse',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def order_booking_find_all(self, **kwargs):
-        """
-        Get bookings list
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.order_booking_find_all(callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param int limit: Maximum number of returned booking (page size)
-        :param int offset: First offset to return (page position)
-        :param list[int] filters_event_id: Define event identifier filters
-        :param list[int] filters_user_id: Define user identifier filter
-        :param list[int] filters_promoter_id: Define promoter identifier filters
-        :param list[int] filters_sales_channel_id: Define promoter identifier filters
-        :return: BookingListResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.order_booking_find_all_with_http_info(**kwargs)
-        else:
-            (data) = self.order_booking_find_all_with_http_info(**kwargs)
-            return data
-
-    def order_booking_find_all_with_http_info(self, **kwargs):
-        """
-        Get bookings list
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.order_booking_find_all_with_http_info(callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param int limit: Maximum number of returned booking (page size)
-        :param int offset: First offset to return (page position)
-        :param list[int] filters_event_id: Define event identifier filters
-        :param list[int] filters_user_id: Define user identifier filter
-        :param list[int] filters_promoter_id: Define promoter identifier filters
-        :param list[int] filters_sales_channel_id: Define promoter identifier filters
-        :return: BookingListResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['limit', 'offset', 'filters_event_id', 'filters_user_id', 'filters_promoter_id', 'filters_sales_channel_id']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method order_booking_find_all" % key
-                )
-            params[key] = val
-        del params['kwargs']
-
-
-        collection_formats = {}
-
-        resource_path = '/order/bookings'.replace('{format}', 'json')
-        path_params = {}
-
-        query_params = {}
-        if 'limit' in params:
-            query_params['limit'] = params['limit']
-        if 'offset' in params:
-            query_params['offset'] = params['offset']
-        if 'filters_event_id' in params:
-            query_params['filters[eventId][]'] = params['filters_event_id']
-            collection_formats['filters[eventId][]'] = 'multi'
-        if 'filters_user_id' in params:
-            query_params['filters[userId][]'] = params['filters_user_id']
-            collection_formats['filters[userId][]'] = 'multi'
-        if 'filters_promoter_id' in params:
-            query_params['filters[promoterId][]'] = params['filters_promoter_id']
-            collection_formats['filters[promoterId][]'] = 'multi'
-        if 'filters_sales_channel_id' in params:
-            query_params['filters[salesChannelId][]'] = params['filters_sales_channel_id']
-            collection_formats['filters[salesChannelId][]'] = 'multi'
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['json'])
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='BookingListResponse',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def order_booking_ticket_find_all(self, booking_ticket_ids, **kwargs):
-        """
-        Get booking ticket list
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.order_booking_ticket_find_all(booking_ticket_ids, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str booking_ticket_ids: booking identifier list (required)
-        :param list[int] filters_user_id: Define user identifier filter
-        :param list[int] filters_promoter_id: Define promoter identifier filters
-        :return: BookingTicketList
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.order_booking_ticket_find_all_with_http_info(booking_ticket_ids, **kwargs)
-        else:
-            (data) = self.order_booking_ticket_find_all_with_http_info(booking_ticket_ids, **kwargs)
-            return data
-
-    def order_booking_ticket_find_all_with_http_info(self, booking_ticket_ids, **kwargs):
-        """
-        Get booking ticket list
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.order_booking_ticket_find_all_with_http_info(booking_ticket_ids, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str booking_ticket_ids: booking identifier list (required)
-        :param list[int] filters_user_id: Define user identifier filter
-        :param list[int] filters_promoter_id: Define promoter identifier filters
-        :return: BookingTicketList
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['booking_ticket_ids', 'filters_user_id', 'filters_promoter_id']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method order_booking_ticket_find_all" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'booking_ticket_ids' is set
-        if ('booking_ticket_ids' not in params) or (params['booking_ticket_ids'] is None):
-            raise ValueError("Missing the required parameter `booking_ticket_ids` when calling `order_booking_ticket_find_all`")
-
-
-        collection_formats = {}
-
-        resource_path = '/order/bookings/tickets/{bookingTicketIds}'.replace('{format}', 'json')
-        path_params = {}
-        if 'booking_ticket_ids' in params:
-            path_params['bookingTicketIds'] = params['booking_ticket_ids']
-
-        query_params = {}
-        if 'filters_user_id' in params:
-            query_params['filters[userId][]'] = params['filters_user_id']
-            collection_formats['filters[userId][]'] = 'multi'
-        if 'filters_promoter_id' in params:
-            query_params['filters[promoterId][]'] = params['filters_promoter_id']
-            collection_formats['filters[promoterId][]'] = 'multi'
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['json'])
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='BookingTicketList',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def order_entry_find_by_ids(self, entry_ids, **kwargs):
-        """
-        Get entry list
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.order_entry_find_by_ids(entry_ids, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str entry_ids: Define list of ticket identifier (required)
-        :param list[int] filters_event_id: Define event identifier filters
-        :param list[int] filters_user_id: Define user identifier filter
-        :param list[int] filters_promoter_id: Define promoter identifier filters
-        :param list[int] filters_transaction_id: Define transaction identifier filters
-        :param list[int] filters_ticket_id: Define ticket identifier filters
-        :param bool filters_deleted: Define deleted filters
-        :return: TicketList
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.order_entry_find_by_ids_with_http_info(entry_ids, **kwargs)
-        else:
-            (data) = self.order_entry_find_by_ids_with_http_info(entry_ids, **kwargs)
-            return data
-
-    def order_entry_find_by_ids_with_http_info(self, entry_ids, **kwargs):
-        """
-        Get entry list
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.order_entry_find_by_ids_with_http_info(entry_ids, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str entry_ids: Define list of ticket identifier (required)
-        :param list[int] filters_event_id: Define event identifier filters
-        :param list[int] filters_user_id: Define user identifier filter
-        :param list[int] filters_promoter_id: Define promoter identifier filters
-        :param list[int] filters_transaction_id: Define transaction identifier filters
-        :param list[int] filters_ticket_id: Define ticket identifier filters
-        :param bool filters_deleted: Define deleted filters
-        :return: TicketList
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['entry_ids', 'filters_event_id', 'filters_user_id', 'filters_promoter_id', 'filters_transaction_id', 'filters_ticket_id', 'filters_deleted']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method order_entry_find_by_ids" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'entry_ids' is set
-        if ('entry_ids' not in params) or (params['entry_ids'] is None):
-            raise ValueError("Missing the required parameter `entry_ids` when calling `order_entry_find_by_ids`")
-
-
-        collection_formats = {}
-
-        resource_path = '/order/transactions/tickets/entries/{entryIds}'.replace('{format}', 'json')
-        path_params = {}
-        if 'entry_ids' in params:
-            path_params['entryIds'] = params['entry_ids']
-
-        query_params = {}
-        if 'filters_event_id' in params:
-            query_params['filters[eventId][]'] = params['filters_event_id']
-            collection_formats['filters[eventId][]'] = 'multi'
-        if 'filters_user_id' in params:
-            query_params['filters[userId][]'] = params['filters_user_id']
-            collection_formats['filters[userId][]'] = 'multi'
-        if 'filters_promoter_id' in params:
-            query_params['filters[promoterId][]'] = params['filters_promoter_id']
-            collection_formats['filters[promoterId][]'] = 'multi'
-        if 'filters_transaction_id' in params:
-            query_params['filters[transactionId][]'] = params['filters_transaction_id']
-            collection_formats['filters[transactionId][]'] = 'multi'
-        if 'filters_ticket_id' in params:
-            query_params['filters[ticketId][]'] = params['filters_ticket_id']
-            collection_formats['filters[ticketId][]'] = 'multi'
-        if 'filters_deleted' in params:
-            query_params['filters[deleted]'] = params['filters_deleted']
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['json'])
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='TicketList',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def order_ticket_find_by_ids(self, ticket_ids, **kwargs):
-        """
-        Get ticket list
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.order_ticket_find_by_ids(ticket_ids, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str ticket_ids: Define list of ticket identifier (required)
-        :param list[int] filters_event_id: Define event identifier filters
-        :param list[int] filters_user_id: Define user identifier filter
-        :param list[int] filters_promoter_id: Define promoter identifier filters
-        :param list[int] filters_transaction_id: Define transaction identifier filters
-        :param bool filters_deleted: Define deleted filters
-        :return: TicketList
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.order_ticket_find_by_ids_with_http_info(ticket_ids, **kwargs)
-        else:
-            (data) = self.order_ticket_find_by_ids_with_http_info(ticket_ids, **kwargs)
-            return data
-
-    def order_ticket_find_by_ids_with_http_info(self, ticket_ids, **kwargs):
-        """
-        Get ticket list
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.order_ticket_find_by_ids_with_http_info(ticket_ids, callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param str ticket_ids: Define list of ticket identifier (required)
-        :param list[int] filters_event_id: Define event identifier filters
-        :param list[int] filters_user_id: Define user identifier filter
-        :param list[int] filters_promoter_id: Define promoter identifier filters
-        :param list[int] filters_transaction_id: Define transaction identifier filters
-        :param bool filters_deleted: Define deleted filters
-        :return: TicketList
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['ticket_ids', 'filters_event_id', 'filters_user_id', 'filters_promoter_id', 'filters_transaction_id', 'filters_deleted']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method order_ticket_find_by_ids" % key
-                )
-            params[key] = val
-        del params['kwargs']
-        # verify the required parameter 'ticket_ids' is set
-        if ('ticket_ids' not in params) or (params['ticket_ids'] is None):
-            raise ValueError("Missing the required parameter `ticket_ids` when calling `order_ticket_find_by_ids`")
-
-
-        collection_formats = {}
-
-        resource_path = '/order/transactions/tickets/{ticketIds}'.replace('{format}', 'json')
-        path_params = {}
-        if 'ticket_ids' in params:
-            path_params['ticketIds'] = params['ticket_ids']
-
-        query_params = {}
-        if 'filters_event_id' in params:
-            query_params['filters[eventId][]'] = params['filters_event_id']
-            collection_formats['filters[eventId][]'] = 'multi'
-        if 'filters_user_id' in params:
-            query_params['filters[userId][]'] = params['filters_user_id']
-            collection_formats['filters[userId][]'] = 'multi'
-        if 'filters_promoter_id' in params:
-            query_params['filters[promoterId][]'] = params['filters_promoter_id']
-            collection_formats['filters[promoterId][]'] = 'multi'
-        if 'filters_transaction_id' in params:
-            query_params['filters[transactionId][]'] = params['filters_transaction_id']
-            collection_formats['filters[transactionId][]'] = 'multi'
-        if 'filters_deleted' in params:
-            query_params['filters[deleted]'] = params['filters_deleted']
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['json'])
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='TicketList',
-                                        auth_settings=auth_settings,
-                                        callback=params.get('callback'),
-                                        _return_http_data_only=params.get('_return_http_data_only'),
-                                        _preload_content=params.get('_preload_content', True),
-                                        _request_timeout=params.get('_request_timeout'),
-                                        collection_formats=collection_formats)
-
-    def order_transaction_find_all(self, **kwargs):
-        """
-        Get transaction list
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.order_transaction_find_all(callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param int limit: Maximum number of returned booking (page size)
-        :param int offset: First offset to return (page position)
-        :param list[int] filters_event_id: Define event identifier filters
-        :param list[int] filters_user_id: Define user identifier filter
-        :param list[int] filters_promoter_id: Define promoter identifier filters
-        :return: TransactionList
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        if kwargs.get('callback'):
-            return self.order_transaction_find_all_with_http_info(**kwargs)
-        else:
-            (data) = self.order_transaction_find_all_with_http_info(**kwargs)
-            return data
-
-    def order_transaction_find_all_with_http_info(self, **kwargs):
-        """
-        Get transaction list
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please define a `callback` function
-        to be invoked when receiving the response.
-        >>> def callback_function(response):
-        >>>     pprint(response)
-        >>>
-        >>> thread = api.order_transaction_find_all_with_http_info(callback=callback_function)
-
-        :param callback function: The callback function
-            for asynchronous request. (optional)
-        :param int limit: Maximum number of returned booking (page size)
-        :param int offset: First offset to return (page position)
-        :param list[int] filters_event_id: Define event identifier filters
-        :param list[int] filters_user_id: Define user identifier filter
-        :param list[int] filters_promoter_id: Define promoter identifier filters
-        :return: TransactionList
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        all_params = ['limit', 'offset', 'filters_event_id', 'filters_user_id', 'filters_promoter_id']
-        all_params.append('callback')
-        all_params.append('_return_http_data_only')
-        all_params.append('_preload_content')
-        all_params.append('_request_timeout')
-
-        params = locals()
-        for key, val in iteritems(params['kwargs']):
-            if key not in all_params:
-                raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method order_transaction_find_all" % key
-                )
-            params[key] = val
-        del params['kwargs']
-
-
-        collection_formats = {}
-
-        resource_path = '/order/transactions'.replace('{format}', 'json')
-        path_params = {}
-
-        query_params = {}
-        if 'limit' in params:
-            query_params['limit'] = params['limit']
-        if 'offset' in params:
-            query_params['offset'] = params['offset']
-        if 'filters_event_id' in params:
-            query_params['filters[eventId][]'] = params['filters_event_id']
-            collection_formats['filters[eventId][]'] = 'multi'
-        if 'filters_user_id' in params:
-            query_params['filters[userId][]'] = params['filters_user_id']
-            collection_formats['filters[userId][]'] = 'multi'
-        if 'filters_promoter_id' in params:
-            query_params['filters[promoterId][]'] = params['filters_promoter_id']
-            collection_formats['filters[promoterId][]'] = 'multi'
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.\
-            select_header_accept(['json'])
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.\
-            select_header_content_type(['application/json'])
-
-        # Authentication setting
-        auth_settings = ['Bearer']
-
-        return self.api_client.call_api(resource_path, 'GET',
-                                        path_params,
-                                        query_params,
-                                        header_params,
-                                        body=body_params,
-                                        post_params=form_params,
-                                        files=local_var_files,
-                                        response_type='TransactionList',
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -2055,12 +741,11 @@ class OrderApi(object):
 
         collection_formats = {}
 
-        resource_path = '/order/transactions/{transactionId}/tickets'.replace('{format}', 'json')
         path_params = {}
         if 'transaction_id' in params:
             path_params['transactionId'] = params['transaction_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -2079,7 +764,7 @@ class OrderApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/order/transactions/{transactionId}/tickets', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -2087,6 +772,110 @@ class OrderApi(object):
                                         post_params=form_params,
                                         files=local_var_files,
                                         response_type='TransactionResponse',
+                                        auth_settings=auth_settings,
+                                        callback=params.get('callback'),
+                                        _return_http_data_only=params.get('_return_http_data_only'),
+                                        _preload_content=params.get('_preload_content', True),
+                                        _request_timeout=params.get('_request_timeout'),
+                                        collection_formats=collection_formats)
+
+    def partner_find_tickets(self, partner_id, **kwargs):
+        """
+        Get tickets from partner(s) id - Partners are ticketing distribution networks (FNAC, TicketMaster etc)
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.partner_find_tickets(partner_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str partner_id: A partner id (or comma separated list) must be provided (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.partner_find_tickets_with_http_info(partner_id, **kwargs)
+        else:
+            (data) = self.partner_find_tickets_with_http_info(partner_id, **kwargs)
+            return data
+
+    def partner_find_tickets_with_http_info(self, partner_id, **kwargs):
+        """
+        Get tickets from partner(s) id - Partners are ticketing distribution networks (FNAC, TicketMaster etc)
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.partner_find_tickets_with_http_info(partner_id, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str partner_id: A partner id (or comma separated list) must be provided (required)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['partner_id']
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+        all_params.append('_preload_content')
+        all_params.append('_request_timeout')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method partner_find_tickets" % key
+                )
+            params[key] = val
+        del params['kwargs']
+        # verify the required parameter 'partner_id' is set
+        if ('partner_id' not in params) or (params['partner_id'] is None):
+            raise ValueError("Missing the required parameter `partner_id` when calling `partner_find_tickets`")
+
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'partner_id' in params:
+            path_params['partnerId'] = params['partner_id']
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['json'])
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = ['Bearer']
+
+        return self.api_client.call_api('/order/partners/{partnerId}/tickets', 'GET',
+                                        path_params,
+                                        query_params,
+                                        header_params,
+                                        body=body_params,
+                                        post_params=form_params,
+                                        files=local_var_files,
+                                        response_type=None,
                                         auth_settings=auth_settings,
                                         callback=params.get('callback'),
                                         _return_http_data_only=params.get('_return_http_data_only'),
@@ -2162,12 +951,11 @@ class OrderApi(object):
 
         collection_formats = {}
 
-        resource_path = '/order/transactions/{transactionId}'.replace('{format}', 'json')
         path_params = {}
         if 'transaction_id' in params:
             path_params['transactionId'] = params['transaction_id']
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -2188,7 +976,7 @@ class OrderApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'DELETE',
+        return self.api_client.call_api('/order/transactions/{transactionId}/delete', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,

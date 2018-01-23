@@ -106,10 +106,9 @@ class AuthorizationApi(object):
 
         collection_formats = {}
 
-        resource_path = '/authorization/token'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
         if 'authorization' in params:
@@ -130,7 +129,7 @@ class AuthorizationApi(object):
         # Authentication setting
         auth_settings = []
 
-        return self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api('/authorization/token', 'POST',
                                         path_params,
                                         query_params,
                                         header_params,

@@ -45,7 +45,7 @@ class Configuration(object):
         Constructor
         """
         # Default Base url
-        self.host = "http://localhost/v1.0"
+        self.host = "http://api.digitick.com/v1.0"
         # Default api client
         self.api_client = None
         # Temp file folder for downloading files
@@ -85,6 +85,11 @@ class Configuration(object):
         self.cert_file = None
         # client key file
         self.key_file = None
+
+        # Proxy URL
+        self.proxy = None
+        # Safe chars for path_param
+        self.safe_chars_for_path_param = ''
 
     @property
     def logger_file(self):

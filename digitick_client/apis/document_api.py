@@ -115,18 +115,17 @@ class DocumentApi(object):
 
         collection_formats = {}
 
-        resource_path = '/document/transactions/{transactionId}/tickets'.replace('{format}', 'json')
         path_params = {}
         if 'transaction_id' in params:
             path_params['transactionId'] = params['transaction_id']
 
-        query_params = {}
+        query_params = []
         if 'ticket_format_id' in params:
-            query_params['ticketFormatId'] = params['ticket_format_id']
+            query_params.append(('ticketFormatId', params['ticket_format_id']))
         if 'as_single_file' in params:
-            query_params['asSingleFile'] = params['as_single_file']
+            query_params.append(('asSingleFile', params['as_single_file']))
         if 'as_url' in params:
-            query_params['asUrl'] = params['as_url']
+            query_params.append(('asUrl', params['as_url']))
 
         header_params = {}
 
@@ -145,7 +144,7 @@ class DocumentApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/document/transactions/{transactionId}/tickets', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
@@ -220,10 +219,9 @@ class DocumentApi(object):
 
         collection_formats = {}
 
-        resource_path = '/document/tickets/formats'.replace('{format}', 'json')
         path_params = {}
 
-        query_params = {}
+        query_params = []
 
         header_params = {}
 
@@ -242,7 +240,7 @@ class DocumentApi(object):
         # Authentication setting
         auth_settings = ['Bearer']
 
-        return self.api_client.call_api(resource_path, 'GET',
+        return self.api_client.call_api('/document/tickets/formats', 'GET',
                                         path_params,
                                         query_params,
                                         header_params,
