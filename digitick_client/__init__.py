@@ -65,3 +65,5 @@ from .api_client import ApiClient
 from .configuration import Configuration
 
 configuration = Configuration()
+
+__version__ = "0.1.0a1"
