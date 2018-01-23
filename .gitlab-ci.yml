@@ -5,7 +5,7 @@ stages:
   - sonar
 
 variables:
-  SCANER_VERSION: 3.0.3.778-linux
+  SCANNER_VERSION: 3.0.3.778-linux
   DEBUG_BEFORE: 0
   DEBUG_SONAR: 1
   DEBUG_SPHINX: 0
@@ -16,11 +16,11 @@ sonar:
   before_script:
   - apt-get --yes -qq update && apt-get --yes -qq install zip
   # Installs sonar-runner ZIP file
-  - if [[ ! -d sonar-scanner-$SCANER_VERSION ]]; then
-  -     wget --no-verbose https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SCANER_VERSION.zip
-  -     unzip -q sonar-scanner-cli-$SCANER_VERSION.zip
+  - if [[ ! -d sonar-scanner-$SCANNER_VERSION ]]; then
+  -     wget --no-verbose https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SCANNER_VERSION.zip
+  -     unzip -q sonar-scanner-cli-$SCANNER_VERSION.zip
   - fi
-  - sonar-scanner-$SCANER_VERSION/bin/sonar-scanner --version
+  - sonar-scanner-$SCANNER_VERSION/bin/sonar-scanner --version
   # Installs pip requirements
   - test ! -d .pip && mkdir .pip
   - if [[ -f requirements/common.txt ]] && [[ -f requirements/constraints.txt ]]; then
@@ -35,12 +35,12 @@ sonar:
   - test ${DEBUG_SONAR} -eq 1 && pylint --version
   - export SONAR_SCANNER_OPTS="-Xmx512m"
   - export SONAR_USER_HOME=.
-  - sonar-scanner-$SCANER_VERSION/bin/sonar-scanner -Dsonar.host.url=$SONAR_HOST
+  - sonar-scanner-$SCANNER_VERSION/bin/sonar-scanner -Dsonar.host.url=$SONAR_HOST
 
   cache:
     paths:
-    - sonar-scanner-cli-$SCANER_VERSION.zip
-    - sonar-scanner-$SCANER_VERSION/
+    - sonar-scanner-cli-$SCANNER_VERSION.zip
+    - sonar-scanner-$SCANNER_VERSION/
     - .scannerwork/
     - .pip/
 
